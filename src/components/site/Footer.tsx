@@ -13,7 +13,7 @@ export function Footer() {
             </div>
             <div>
               <div className="font-display font-bold text-lg text-white">UT Trans Logistics</div>
-              <div className="text-xs text-white/60">Moving India Forward</div>
+              <div className="text-xs text-white/60">Better Solution To A Better You</div>
             </div>
           </Link>
           <p className="text-white/70 text-sm leading-relaxed">
