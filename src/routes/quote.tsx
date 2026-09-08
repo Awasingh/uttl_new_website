@@ -124,10 +124,10 @@ export default function QuotePage() {
         subtitle="Three quick steps. Transparent pricing. No hidden fees."
       />
 
-      <section className="section-pad">
+      {/* <section className="section-pad">
         <div className="container-x grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            {/* Stepper */}
+           
             <ol className="flex items-center gap-3 mb-8">
               {[
                 { n: 1, label: "Shipment" },
@@ -149,7 +149,7 @@ export default function QuotePage() {
             </ol>
 
             <form onSubmit={onSubmit} className="bg-card border border-white/5 rounded-2xl p-6 md:p-8">
-              {/* STEP 1 */}
+             
               {step === 1 && (
                 <div className="space-y-6">
                   <div>
@@ -216,7 +216,7 @@ export default function QuotePage() {
                 </div>
               )}
 
-              {/* STEP 2 */}
+            
               {step === 2 && (
                 <div className="space-y-6">
                   <div>
@@ -295,7 +295,7 @@ export default function QuotePage() {
                 </div>
               )}
 
-              {/* STEP 3 */}
+              
               {step === 3 && (
                 <div className="space-y-6">
                   <div>
@@ -327,7 +327,7 @@ export default function QuotePage() {
             </form>
           </div>
 
-          {/* Estimate sidebar */}
+         
           <aside className="lg:col-span-1">
             <div className="bg-card border border-white/5 rounded-2xl p-6 sticky top-24">
               <p className="text-primary text-xs font-semibold tracking-widest">LIVE ESTIMATE</p>
@@ -356,7 +356,7 @@ export default function QuotePage() {
             </div>
           </aside>
         </div>
-      </section>
+      </section> */}
     </Layout>
   );
 }
