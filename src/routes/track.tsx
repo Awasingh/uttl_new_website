@@ -40,7 +40,7 @@ type AwbStatus = {
   DueDate: string;
 };
 
-const TRACKING_API = `${window.location.protocol}//${["180", "179", "213", "58"].join(".")}/uttl_api_new/api/Tracking/fetchAwbStatus`;
+const TRACKING_API = `https://uttl.srivota.com/api/Track_awbNo/fetchAwbStatus`;
 
 export default function TrackPage() {
   const [tracking, setTracking] = useState("");
@@ -94,7 +94,7 @@ export default function TrackPage() {
         subtitle="Enter your consignment, AWB or booking reference for real-time status, milestones and ETA."
       />
 
-      <section className="section-pad">
+      <section className="pt-4 md:pt-6 pb-14 md:pb-20">
         <div className="container-x">
           <form
             onSubmit={onSubmit}
@@ -135,11 +135,11 @@ export default function TrackPage() {
                     <h2 className="text-2xl text-white mt-1">{result.AwbNumber}</h2>
                     <p className="text-primary font-semibold mt-1">{status}</p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  {/* <div className="flex items-center gap-2">
                     <button className="btn-outline text-sm !py-2 !px-4">
                       <FileDown className="w-4 h-4" /> POD
                     </button>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -187,9 +187,13 @@ export default function TrackPage() {
                 <div className="bg-card border border-white/5 rounded-2xl p-6">
                   <h3 className="text-white font-semibold">Shipment Details</h3>
                   <dl className="mt-4 space-y-3 text-sm">
+                    <Row k="S. No." v={result.Sno} />
+                    <Row k="Transaction ID" v={String(result.TxnID)} />
+                    <Row k="Upload date" v={result.UploadDate} />
                     <Row k="Total packages" v={result.TotalPkt} />
                     <Row k="Booking date" v={result.BookingDate} />
                     <Row k="Due date" v={result.DueDate} />
+                    {isDelivered && <Row k="Delivery date" v={result.DeliveryDate} />}
                     <Row k="Consignor" v={result.ConsignorDetails} />
                     <Row k="Consignee" v={result.ConsigneeDatails} />
                     {result.DelayReason && <Row k="Delay reason" v={result.DelayReason} />}
@@ -203,7 +207,7 @@ export default function TrackPage() {
                     Speak to a live agent about consignment <strong>{result.AwbNumber}</strong>.
                   </p>
                   <a href="tel:+911149281919" className="btn-primary mt-4 w-full justify-center">
-                    Call +91 9711413180
+                    Call 011- 49281919
                   </a>
                 </div>
               </aside>
@@ -246,8 +250,8 @@ function createMilestones(shipment: AwbStatus): Milestone[] {
   const delivered = shipment.CurrentStatus.toLowerCase() === "delivered";
   return [
     { icon: CheckCircle2, status: "Booked", location: shipment.BookingBranch, time: shipment.BookingDate, done: true },
-    { icon: shipment.BookingMode.toLowerCase().includes("surface") ? Truck : Package, status: shipment.CurrentStatus, location: shipment.BookingBranch, time: delivered ? shipment.DeliveryDate : shipment.UploadDate, done: true, active: !delivered },
-    { icon: delivered ? CheckCircle2 : MapPin, status: delivered ? "Delivered" : "Due for delivery", location: shipment.ConsigneeDatails, time: delivered ? shipment.DeliveryDate : shipment.DueDate, done: delivered, active: !delivered },
+    { icon: shipment.BookingMode.toLowerCase().includes("surface") ? Truck : Package, status: "In transit", location: `To ${shipment.ConsigneeDatails}`, time: shipment.UploadDate, done: true, active: !delivered },
+    { icon: delivered ? CheckCircle2 : MapPin, status: delivered ? "Delivered" : shipment.CurrentStatus, location: shipment.ConsigneeDatails, time: shipment.DeliveryDate, done: delivered, active: !delivered },
   ];
 }
 
